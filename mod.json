@@ -1,0 +1,25 @@
+{
+  //游戏中显示的模组名称
+  "displayName": "TQLSlib",
+
+  //模组的内部名称
+  "name": "TQLSlib",
+
+  //作者名称
+  "author": "tqls",
+
+  //模组的完全限定主类名
+  "main": "tqlslib.TQLSlib",
+
+  //模组对话框中显示的描述
+  "description": "tqls的前置库mod",
+
+  //模组版本
+  "version": 1.0,
+
+  //运行此模组所需的最低游戏版本
+  "minGameVersion": 145,
+
+  //这是一个Java模组
+  "java": true
+}

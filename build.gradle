@@ -16,15 +16,15 @@ java{
 }
 
 ext{
-    //the build number that this mod is made for
+    //此模组适用的构建版本
     mindustryVersion = 'v146'
     jabelVersion = "93fde537c7"
-    //windows sucks
+    //windows 真烂
     isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
     sdkRoot = System.getenv("ANDROID_HOME") ?: System.getenv("ANDROID_SDK_ROOT")
 }
 
-//java 8 backwards compatibility flag
+//Java 8 向后兼容标志
 allprojects{
     tasks.withType(JavaCompile){
         options.compilerArgs.addAll(['--release', '8'])
@@ -38,7 +38,7 @@ dependencies{
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
 }
 
-//force arc version
+//强制 Arc 版本
 configurations.all{
     resolutionStrategy.eachDependency { details ->
         if(details.requested.group == 'com.github.Anuken.Arc'){
@@ -57,12 +57,12 @@ task jarAndroid{
 
         if(!platformRoot) throw new GradleException("No android.jar found. Ensure that you have an Android platform installed.")
 
-        //collect dependencies needed for desugaring
+        //收集脱糖所需的依赖项
         def dependencies = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File(platformRoot, "android.jar")]).collect{ "--classpath $it.path" }.join(" ")
 
         def d8 = isWindows ? "d8.bat" : "d8"
 
-        //dex and desugar files - this requires d8 in your PATH
+        //对文件进行 dex 和脱糖处理 - 这需要在 PATH 中配置 d8
         "$d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar"
             .execute(null, new File("$buildDir/libs")).waitForProcessOutput(System.out, System.err)
     }
@@ -76,7 +76,7 @@ jar{
     }
 
     from(projectDir){
-        include "mod.hjson"
+        include "mod.json"
     }
 
     from("assets/"){
