@@ -2,6 +2,7 @@ package tqlslib;
 
 import mindustry.mod.Mods;
 import tqlslib.type.status.ExtentionStatus;
+import tqlslib.worlds.blocks.distribution.*;
 import tqlslib.worlds.blocks.power.PowerTower;
 
 public class ExtendedParser extends Mods {

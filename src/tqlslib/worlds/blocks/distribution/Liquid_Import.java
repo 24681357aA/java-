@@ -1,4 +1,4 @@
-package tqlslib;
+package tqlslib.worlds.blocks.distribution;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;

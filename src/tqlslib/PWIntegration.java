@@ -6,6 +6,7 @@ import mindustry.Vars;
 import mindustry.mod.ClassMap;
 import mindustry.mod.Mods;
 import tqlslib.type.status.ExtentionStatus;
+import tqlslib.worlds.blocks.distribution.*;
 import tqlslib.worlds.blocks.power.PowerTower;
 
 public class PWIntegration {
