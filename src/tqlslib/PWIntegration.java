@@ -6,8 +6,17 @@ import mindustry.Vars;
 import mindustry.mod.ClassMap;
 import mindustry.mod.Mods;
 import tqlslib.type.status.ExtentionStatus;
-import tqlslib.worlds.blocks.distribution.*;
+import tqlslib.worlds.blocks.distribution.CoreUnloader_Import;
+import tqlslib.worlds.blocks.distribution.CoreUnloader_Output;
+import tqlslib.worlds.blocks.distribution.LiquidTransferStation;
+import tqlslib.worlds.blocks.distribution.Liquid_Import;
+import tqlslib.worlds.blocks.distribution.Liquid_Output;
 import tqlslib.worlds.blocks.power.PowerTower;
+import tqlslib.content.TQTechTree;
+import tqlslib.graphics.TQDrawf;
+import tqlslib.graphics.TQShaders;
+import tqlslib.ui.TQDialogs;
+import tqlslib.util.TQUtls;
 
 public class PWIntegration {
    private ExtendedParser parser = new ExtendedParser();
@@ -33,5 +42,12 @@ public class PWIntegration {
       ClassMap.classes.put("Liquid_Output", Liquid_Output.class);
       ClassMap.classes.put("Liquid_Import", Liquid_Import.class);
       ClassMap.classes.put("LiquidTransferStation", LiquidTransferStation.class);
+      // Tranqol integration classes
+      ClassMap.classes.put("TQShaders", TQShaders.class);
+      ClassMap.classes.put("TQDrawf", TQDrawf.class);
+      ClassMap.classes.put("TQUtls", TQUtls.class);
+      ClassMap.classes.put("TQDialogs", TQDialogs.class);
+      ClassMap.classes.put("TQTechTree", TQTechTree.class);
+      ClassMap.classes.put("TranqolIntegration", TranqolIntegration.class);
    }
 }

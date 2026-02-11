@@ -7,16 +7,15 @@ import arc.util.Time;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
-import tqlslib.PWIntegration;
 
 public class TQLSlib extends Mod{
 
     public TQLSlib(){
         Log.info("Loaded TQLSlib constructor.");
 
-        //监听游戏加载事件
+        // Listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
-            //启动时显示对话框
+            // Show dialog on startup
             Time.runTask(10f, () -> {
                 BaseDialog dialog = new BaseDialog("frog");
                 dialog.cont.add("behold").row();
@@ -32,10 +31,23 @@ public class TQLSlib extends Mod{
     public void loadContent(){
         Log.info("Loading some tqlslib content.");
         
-        // 加载 pw 模组功能
+        // Load PW module functionality
         Log.info("Loading PW integration content.");
         PWIntegration pwIntegration = new PWIntegration();
         pwIntegration.loadContent();
+        
+        // Load tranqol module functionality
+        Log.info("Loading Tranqol integration content.");
+        TranqolIntegration.load();
+    }
+    
+    @Override
+    public void init() {
+        super.init();
+        
+        // Initialize tranqol module functionality
+        Log.info("Initializing Tranqol integration.");
+        TranqolIntegration.init();
     }
 
 }
