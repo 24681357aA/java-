@@ -1,8 +1,7 @@
-package tqlslib;
+package tqlslib.worlds.blocks.distribution;
 
 import arc.Events;
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
