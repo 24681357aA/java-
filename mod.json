@@ -15,7 +15,7 @@
   "description": "tqls的前置库mod",
 
   //模组版本
-  "version": 1.0,
+  "version": "0.0.1-alpha",
 
   //运行此模组所需的最低游戏版本
   "minGameVersion": 145,

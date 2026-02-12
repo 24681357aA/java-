@@ -1,4 +1,8 @@
-# TQLSlib - Mindustry Java 模组模板
+# TQLSlib
+
+作者tqls的一个前置Mod
+
+# Mindustry Java 模组模板
 一个适用于 Android 和 PC 的 Mindustry Java 模组模板。此模组的 Kotlin 版本可在此处查看 [here](https://github.com/Anuken/MindustryKotlinModTemplate)。
 
 ## 构建桌面测试版本
