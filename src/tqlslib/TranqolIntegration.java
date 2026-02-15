@@ -16,13 +16,10 @@ public class TranqolIntegration {
       try {
          Log.info("Tranqol: Loading integration...");
          
-         // Initialize shaders
          initShaders();
          
-         // Load tech tree
          TQTechTree.load();
          
-         // Initialize utilities
          initUtils();
          
          Log.info("Tranqol: Integration loaded successfully.");
@@ -35,12 +32,10 @@ public class TranqolIntegration {
       try {
          Log.info("Tranqol: Initializing integration...");
          
-         // Initialize dialogs
          if (!Vars.headless) {
             TQDialogs.init();
          }
          
-         // Register events
          registerEvents();
          
          Log.info("Tranqol: Integration initialized successfully.");
@@ -64,9 +59,7 @@ public class TranqolIntegration {
    private static void initUtils() {
       try {
          Log.info("Tranqol: Initializing utilities...");
-         // Initialize drawing utilities
          TQDrawf.init();
-         // Initialize general utilities
          TQUtls.init();
       } catch (Exception e) {
          Log.err("Tranqol: Failed to initialize utilities", e);
@@ -75,7 +68,6 @@ public class TranqolIntegration {
 
    private static void registerEvents() {
       Log.info("Tranqol: Registering events...");
-      // Other events can be registered here
    }
 
    public static void test() {

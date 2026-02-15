@@ -2,6 +2,129 @@
 
 作者tqls的一个前置Mod
 
+## 模组简介
+
+TQLSlib 是一个 Mindustry 前置库模组，为其他模组提供丰富的功能支持。本模组包含完整的空间站系统、数据持久化、UI 对话框框架等核心功能，便于开发者快速构建复杂的模组功能。
+
+## 功能特性
+
+### 空间站系统
+- **一星球多空间站**：支持在单个星球上创建多个独立的空间站
+- **空间站管理**：支持创建、删除、重命名空间站
+- **数据持久化**：自动保存和加载空间站数据
+- **UI 对话框框架**：提供预设的对话框用于空间站管理
+
+### 核心模块
+- **SpaceStationManager**：空间站核心管理器，提供所有空间站操作的静态方法
+- **SpaceStationDialogs**：UI 对话框框架，包含管理器、选择、创建、删除确认、重命名等对话框
+- **SpaceStationIO**：数据持久化系统，负责空间站数据的读写
+- **DTVars**：全局变量管理，维护空间站信息和映射关系
+
+## 开发者使用指南
+
+### 依赖配置
+
+在您的模组中添加 TQLSlib 作为依赖项：
+
+```gradle
+// 在 build.gradle 中添加
+dependencies {
+    compileOnly project(':tqlslib')
+}
+```
+
+### 空间站系统使用示例
+
+#### 创建空间站
+```java
+import mindustry.type.Planet;
+import tqlslib.core.SpaceStationManager;
+import tqlslib.type.SpaceStation;
+
+// 获取目标星球
+Planet parentPlanet = Vars.content.planet("serpulo");
+
+// 创建空间站
+SpaceStation station = SpaceStationManager.createStation(parentPlanet, "我的空间站");
+if (station != null) {
+    Log.info("空间站创建成功，ID: " + station.stationId);
+}
+```
+
+#### 使用对话框
+```java
+import tqlslib.ui.SpaceStationDialogs;
+import tqlslib.type.SpaceStation;
+
+// 显示空间站选择对话框
+SpaceStationDialogs.showSelectDialog(parentPlanet, station -> {
+    // 用户选择空间站后的回调
+    Log.info("选择了空间站: " + station.localizedName);
+});
+
+// 显示空间站管理器
+SpaceStationDialogs.showManagerDialog();
+```
+
+#### 核心管理方法
+```java
+import tqlslib.core.SpaceStationManager;
+import tqlslib.type.SpaceStation;
+import arc.struct.Seq;
+
+// 根据星球获取所有空间站
+Seq<SpaceStationInfo> stations = SpaceStationManager.getStationsByPlanet(parentPlanet);
+
+// 根据ID获取空间站
+SpaceStation station = SpaceStationManager.getStationById(stationId);
+
+// 重命名空间站
+SpaceStationManager.renameStation(stationId, "新名称");
+
+// 删除空间站
+SpaceStationManager.removeStation(stationId);
+
+// 检查空间站是否存在
+boolean exists = SpaceStationManager.stationExists(stationId);
+
+// 获取下一个空间站编号
+int nextNumber = SpaceStationManager.getNextStationNumber(parentPlanet);
+```
+
+## 核心类参考
+
+### SpaceStationManager
+位于 `tqlslib.core.SpaceStationManager`
+
+| 方法 | 描述 |
+|------|------|
+| `createStation(Planet, String)` | 创建新空间站 |
+| `removeStation(String)` | 删除指定ID的空间站 |
+| `renameStation(String, String)` | 重命名空间站 |
+| `getStationsByPlanet(Planet)` | 获取指定星球的所有空间站 |
+| `getStationById(String)` | 根据ID获取空间站 |
+| `getNextStationNumber(Planet)` | 获取下一个空间站编号 |
+| `stationExists(String)` | 检查空间站是否存在 |
+| `getAllStations()` | 获取所有空间站 |
+| `getStationCount()` | 获取空间站总数 |
+| `getStationCountByPlanet(Planet)` | 获取指定星球的空间站数量 |
+
+### SpaceStationDialogs
+位于 `tqlslib.ui.SpaceStationDialogs`
+
+| 方法 | 描述 |
+|------|------|
+| `showManagerDialog()` | 显示空间站管理器 |
+| `showSelectDialog(Planet, StationSelectCallback)` | 显示空间站选择对话框 |
+| `showCreateDialog(Planet, StationCreateCallback)` | 显示空间站创建对话框 |
+| `showDeleteConfirmDialog(SpaceStation, Runnable)` | 显示删除确认对话框 |
+| `showRenameDialog(SpaceStation, NameChangeCallback)` | 显示重命名对话框 |
+
+### 回调接口
+- `StationSelectCallback`：空间站选择回调，包含 `onSelect(SpaceStation)` 方法
+- `StationCreateCallback`：空间站创建回调，包含 `onCreate(SpaceStation)` 方法
+- `NameChangeCallback`：名称变更回调，包含 `onRename(String)` 方法
+
 # Mindustry Java 模组模板
 一个适用于 Android 和 PC 的 Mindustry Java 模组模板。此模组的 Kotlin 版本可在此处查看 [here](https://github.com/Anuken/MindustryKotlinModTemplate)。
 
