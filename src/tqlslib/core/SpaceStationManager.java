@@ -8,6 +8,11 @@ import tqlslib.type.SpaceStation;
 import tqlslib.type.SpaceStationInfo;
 
 public class SpaceStationManager {
+    private static final SpaceStationCore core = new SpaceStationCore();
+    
+    public static SpaceStationCore getCore() {
+        return core;
+    }
 
    public static SpaceStation createStation(Planet parent, String name) {
       try {
