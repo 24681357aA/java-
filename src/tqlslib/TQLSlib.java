@@ -5,10 +5,12 @@ import arc.util.Log;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import tqlslib.api.ContentRegistry;
+import tqlslib.api.EventBus;
 import tqlslib.api.SpaceStationAPI;
 import tqlslib.core.ContentRegistryCore;
 import tqlslib.core.SpaceStationCore;
 import tqlslib.core.SpaceStationIO;
+import tqlslib.event.EventBusImpl;
 import tqlslib.graphics.TQDrawf;
 import tqlslib.type.status.ExtentionStatus;
 import tqlslib.util.TQUtils;
@@ -25,6 +27,7 @@ public class TQLSlib extends Mod{
     
     private static final SpaceStationAPI spaceStationAPI = new SpaceStationCore();
     private static final ContentRegistry contentRegistry = new ContentRegistryCore();
+    private static final EventBus eventBus = new EventBusImpl();
     
     public static SpaceStationAPI getSpaceStationAPI() {
         return spaceStationAPI;
@@ -32,6 +35,10 @@ public class TQLSlib extends Mod{
     
     public static ContentRegistry getContentRegistry() {
         return contentRegistry;
+    }
+    
+    public static EventBus getEventBus() {
+        return eventBus;
     }
 
     public TQLSlib(){
