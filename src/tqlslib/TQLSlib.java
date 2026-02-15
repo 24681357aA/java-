@@ -7,6 +7,7 @@ import mindustry.mod.Mod;
 import tqlslib.api.ContentRegistry;
 import tqlslib.api.EventBus;
 import tqlslib.api.SpaceStationAPI;
+import tqlslib.config.ConfigLoader;
 import tqlslib.core.ContentRegistryCore;
 import tqlslib.core.SpaceStationCore;
 import tqlslib.core.SpaceStationIO;
@@ -68,6 +69,10 @@ public class TQLSlib extends Mod{
         TQDrawf.init();
         TQUtils.init();
         Log.info("Utilities initialized.");
+        
+        Log.info("Loading configs...");
+        ConfigLoader.loadModConfigs("tqlslib");
+        Log.info("Configs loaded.");
         
         Log.info("TQLSlib content loaded successfully.");
     }

@@ -1,0 +1,10 @@
+{
+  "type": "status",
+  "name": "example-status",
+  "description": "An example status effect created from JSON config",
+  "color": "00ff00",
+  "damage": 0.5,
+  "speedMultiplier": 0.8,
+  "healthMultiplier": 1.0,
+  "damageMultiplier": 1.2
+}

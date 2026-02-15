@@ -1,0 +1,12 @@
+{
+  "type": "planet",
+  "name": "example-planet",
+  "description": "An example planet created from JSON config",
+  "radius": 1.0,
+  "color": "0000ff",
+  "orbitRadius": 10.0,
+  "orbitTime": 100.0,
+  "rotateTime": 20.0,
+  "accessible": true,
+  "alwaysUnlocked": true
+}

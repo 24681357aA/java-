@@ -1,0 +1,8 @@
+{
+  "type": "block",
+  "name": "example-block",
+  "description": "An example block created from JSON config",
+  "size": 1,
+  "health": 100,
+  "color": "ff0000"
+}
