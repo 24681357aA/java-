@@ -3,11 +3,18 @@ package tqlslib;
 import arc.Events;
 import arc.util.Log;
 import mindustry.game.EventType.ClientLoadEvent;
-import mindustry.mod.ClassMap;
 import mindustry.mod.Mod;
+import tqlslib.api.ContentRegistry;
+import tqlslib.api.EventBus;
+import tqlslib.api.SpaceStationAPI;
+import tqlslib.config.ConfigLoader;
+import tqlslib.core.ContentRegistryCore;
+import tqlslib.core.SpaceStationCore;
 import tqlslib.core.SpaceStationIO;
+import tqlslib.event.EventBusImpl;
 import tqlslib.graphics.TQDrawf;
 import tqlslib.type.status.ExtentionStatus;
+import tqlslib.util.TQUtils;
 import tqlslib.util.TQUtls;
 import tqlslib.worlds.blocks.distribution.CoreUnloader_Import;
 import tqlslib.worlds.blocks.distribution.CoreUnloader_Output;
@@ -18,6 +25,22 @@ import tqlslib.worlds.blocks.power.PowerTower;
 
 public class TQLSlib extends Mod{
     private static final String PREFIX = "tqls-";
+    
+    private static final SpaceStationAPI spaceStationAPI = new SpaceStationCore();
+    private static final ContentRegistry contentRegistry = new ContentRegistryCore();
+    private static final EventBus eventBus = new EventBusImpl();
+    
+    public static SpaceStationAPI getSpaceStationAPI() {
+        return spaceStationAPI;
+    }
+    
+    public static ContentRegistry getContentRegistry() {
+        return contentRegistry;
+    }
+    
+    public static EventBus getEventBus() {
+        return eventBus;
+    }
 
     public TQLSlib(){
         Log.info("Loaded TQLSlib constructor.");
@@ -30,21 +53,26 @@ public class TQLSlib extends Mod{
         DTVars.init();
         
         Log.info("Registering classes...");
-        ClassMap.classes.put(PREFIX + "PowerTower", PowerTower.class);
-        ClassMap.classes.put(PREFIX + "ExtentionStatus", ExtentionStatus.class);
-        ClassMap.classes.put(PREFIX + "CoreUnloader_Output", CoreUnloader_Output.class);
-        ClassMap.classes.put(PREFIX + "CoreUnloader_Import", CoreUnloader_Import.class);
-        ClassMap.classes.put(PREFIX + "Liquid_Output", Liquid_Output.class);
-        ClassMap.classes.put(PREFIX + "Liquid_Import", Liquid_Import.class);
-        ClassMap.classes.put(PREFIX + "LiquidTransferStation", LiquidTransferStation.class);
-        ClassMap.classes.put(PREFIX + "TQDrawf", TQDrawf.class);
-        ClassMap.classes.put(PREFIX + "TQUtls", TQUtls.class);
+        contentRegistry.registerClass("PowerTower", PowerTower.class);
+        contentRegistry.registerClass("ExtentionStatus", ExtentionStatus.class);
+        contentRegistry.registerClass("CoreUnloader_Output", CoreUnloader_Output.class);
+        contentRegistry.registerClass("CoreUnloader_Import", CoreUnloader_Import.class);
+        contentRegistry.registerClass("Liquid_Output", Liquid_Output.class);
+        contentRegistry.registerClass("Liquid_Import", Liquid_Import.class);
+        contentRegistry.registerClass("LiquidTransferStation", LiquidTransferStation.class);
+        contentRegistry.registerClass("TQDrawf", TQDrawf.class);
+        contentRegistry.registerClass("TQUtils", TQUtils.class);
+        contentRegistry.registerClass("TQUtls", TQUtls.class);
         Log.info("Classes registered successfully with tqls- prefix");
         
         Log.info("Initializing utilities...");
         TQDrawf.init();
-        TQUtls.init();
+        TQUtils.init();
         Log.info("Utilities initialized.");
+        
+        Log.info("Loading configs...");
+        ConfigLoader.loadModConfigs("tqlslib");
+        Log.info("Configs loaded.");
         
         Log.info("TQLSlib content loaded successfully.");
     }
