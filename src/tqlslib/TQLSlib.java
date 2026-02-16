@@ -1,53 +1,67 @@
 package tqlslib;
 
-import arc.Core;
 import arc.Events;
 import arc.util.Log;
-import arc.util.Time;
 import mindustry.game.EventType.ClientLoadEvent;
+import mindustry.mod.ClassMap;
 import mindustry.mod.Mod;
-import mindustry.ui.dialogs.BaseDialog;
+import tqlslib.core.SpaceStationIO;
+import tqlslib.graphics.TQDrawf;
+import tqlslib.type.status.ExtentionStatus;
+import tqlslib.util.TQUtls;
+import tqlslib.worlds.blocks.distribution.CoreUnloader_Import;
+import tqlslib.worlds.blocks.distribution.CoreUnloader_Output;
+import tqlslib.worlds.blocks.distribution.LiquidTransferStation;
+import tqlslib.worlds.blocks.distribution.Liquid_Import;
+import tqlslib.worlds.blocks.distribution.Liquid_Output;
+import tqlslib.worlds.blocks.power.PowerTower;
 
 public class TQLSlib extends Mod{
+    private static final String PREFIX = "tqls-";
 
     public TQLSlib(){
         Log.info("Loaded TQLSlib constructor.");
-
-        // Listen for game load event
-        Events.on(ClientLoadEvent.class, e -> {
-            // Show dialog on startup
-            Time.runTask(10f, () -> {
-                BaseDialog dialog = new BaseDialog("frog");
-                dialog.cont.add("behold").row();
-                //Mod sprites are prefixed with the mod name (this mod is called 'tqlslib-java-mod' in its config)
-                dialog.cont.image(Core.atlas.find("tqlslib-java-mod-frog")).pad(20f).row();
-                dialog.cont.button("I see", dialog::hide).size(100f, 50f);
-                dialog.show();
-            });
-        });
     }
 
     @Override
     public void loadContent(){
-        Log.info("Loading some tqlslib content.");
+        Log.info("Loading TQLSlib content.");
         
-        // Load PW module functionality
-        Log.info("Loading PW integration content.");
-        PWIntegration pwIntegration = new PWIntegration();
-        pwIntegration.loadContent();
+        DTVars.init();
         
-        // Load tranqol module functionality
-        Log.info("Loading Tranqol integration content.");
-        TranqolIntegration.load();
+        Log.info("Registering classes...");
+        ClassMap.classes.put(PREFIX + "PowerTower", PowerTower.class);
+        ClassMap.classes.put(PREFIX + "ExtentionStatus", ExtentionStatus.class);
+        ClassMap.classes.put(PREFIX + "CoreUnloader_Output", CoreUnloader_Output.class);
+        ClassMap.classes.put(PREFIX + "CoreUnloader_Import", CoreUnloader_Import.class);
+        ClassMap.classes.put(PREFIX + "Liquid_Output", Liquid_Output.class);
+        ClassMap.classes.put(PREFIX + "Liquid_Import", Liquid_Import.class);
+        ClassMap.classes.put(PREFIX + "LiquidTransferStation", LiquidTransferStation.class);
+        ClassMap.classes.put(PREFIX + "TQDrawf", TQDrawf.class);
+        ClassMap.classes.put(PREFIX + "TQUtls", TQUtls.class);
+        Log.info("Classes registered successfully with tqls- prefix");
+        
+        Log.info("Initializing utilities...");
+        TQDrawf.init();
+        TQUtls.init();
+        Log.info("Utilities initialized.");
+        
+        Log.info("TQLSlib content loaded successfully.");
     }
     
     @Override
     public void init() {
         super.init();
         
-        // Initialize tranqol module functionality
-        Log.info("Initializing Tranqol integration.");
-        TranqolIntegration.init();
+        Log.info("Initializing TQLSlib.");
+        
+        Events.on(ClientLoadEvent.class, e -> {
+            Log.info("TQLSlib: Loading space station data...");
+            SpaceStationIO.load();
+            Log.info("TQLSlib: Space station data loaded.");
+        });
+        
+        Log.info("TQLSlib initialized successfully.");
     }
 
 }
